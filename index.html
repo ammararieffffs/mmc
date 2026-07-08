@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -14,11 +15,10 @@
       * {
         padding: 0;
         margin: 0;
+        box-sizing: border-box;
       }
       body {
         background-color: #0d0d0d;
-      }
-      :root {
       }
       h1 {
         font-size: clamp(3.5rem, 12vw, 8rem);
@@ -29,6 +29,9 @@
       }
       h2 {
         font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-family: "Barlow Condensed";
+        font-weight: 900;
+        color: white;
       }
       h3 {
         font-size: 2.25rem;
@@ -44,10 +47,17 @@
       }
       h6 {
         font-size: 1.125rem;
+        font-family: "Barlow Condensed";
+        color: white;
+      }
+      h6.big {
+        font-size: 1.875rem;
+        font-family: "Barlow Condensed";
       }
       p {
-        font-size: 0.75rem;
+        font-size: 0.833vw;
         color: #888888;
+        font-family: "DM Sans";
       }
       p.big {
         font-size: 1.4rem;
@@ -57,6 +67,24 @@
       }
       p.smaller {
         font-size: 0.8rem;
+      }
+      h6.smallest {
+        font-family: "Barlow Condensed";
+        font-size: 0.75rem;
+        color: red;
+      }
+      .barlow {
+        font-family: "Barlow Condensed";
+      }
+      .grey {
+        color: #888888 !important;
+      }
+      .white {
+        color: white !important;
+        font-weight: 700;
+      }
+      .red {
+        color: red !important;
       }
       #hero {
         position: relative;
@@ -69,6 +97,7 @@
         background: #0d0d0d;
         overflow: hidden;
         gap: 2vw;
+        overflow: visible;
       }
 
       #hero::before {
@@ -117,19 +146,24 @@
 
       .mainlogo {
         width: 15vw;
+        max-width: 200px;
       }
       .hero-text {
         width: 40vw;
+        min-width: 300px;
         text-align: center;
       }
       .hero-desc {
         width: 40vw;
+        min-width: 280px;
         text-align: center;
       }
       .hero-btn {
         display: flex;
         align-items: center;
         gap: 2vw;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
       .hero-btn-chld {
@@ -142,14 +176,14 @@
         color: white;
         text-decoration: none;
         width: 10vw;
+        min-width: 140px;
         text-align: center;
         box-sizing: border-box;
-
-        & img {
-          width: 1vw;
-          position: relative;
-          top: 0.14vw;
-        }
+      }
+      .hero-btn-chld img {
+        width: 1vw;
+        position: relative;
+        top: 0.14vw;
       }
       .red-btn {
         background-color: red;
@@ -160,7 +194,7 @@
         border: 0.052vw solid #888888;
         background-color: #888888;
         border-radius: 20vw;
-        height: 10vh;
+        height: 5vh;
       }
 
       .scroll-ele::before {
@@ -171,7 +205,7 @@
         font-family: "DM Sans", sans-serif;
         letter-spacing: 2px;
         position: relative;
-        top: 6vw;
+        top: 3vw;
         text-align: center;
         left: -2.083vw;
       }
@@ -184,7 +218,132 @@
         position: relative;
         text-align: center;
         left: -0.938vw;
-        top: 6vw;
+        top: 3vw;
+      }
+      .scroll-ele,
+      .scroll-ele::before,
+      .scroll-ele::after {
+        transform: translateY(var(--offset, 0px));
+      }
+      #about {
+        min-height: 100vh;
+        display: flex;
+        flex-wrap: wrap;
+        padding-inline: 10vw;
+        padding-block: 4vw;
+        justify-content: center;
+        align-items: center;
+        gap: 4vw;
+      }
+      .about-items {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 35vw;
+        min-width: 300px;
+        gap: 2vw;
+      }
+      .about-items p {
+        width: 27vw;
+        min-width: 280px;
+      }
+      .about-sub-title {
+        display: flex;
+        align-items: center;
+        gap: 1.65vw;
+
+        & h6.smallest {
+          letter-spacing: 0.4vw;
+        }
+      }
+      .about-sub-title img {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+      .about-img {
+        width: 35vw;
+        min-width: 280px;
+        min-height: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      .about-img img {
+        width: 100%;
+        height: auto;
+      }
+
+      .about-img::before {
+        content: "MMC";
+        width: 5.83vw;
+        height: 5.83vw;
+        min-width: 70px;
+        min-height: 70px;
+        background-color: red;
+        color: white;
+        font-family: "Barlow Condensed";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 2.25rem;
+        font-weight: 900;
+        position: absolute;
+        top: -0.4vw;
+        right: -0.3vw;
+        border-radius: 0.6vw;
+        z-index: 1;
+      }
+      .about-img::after {
+        content: "";
+        width: 10vw;
+        height: 10vw;
+        min-width: 100px;
+        min-height: 100px;
+        background-image: url("src/label-img.png");
+        position: absolute;
+        border-radius: 0.6vw;
+        bottom: -0.3vw;
+        left: -1.1vw;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: 1;
+      }
+      .about-stats {
+        display: flex;
+        gap: 6vw;
+        flex-wrap: wrap;
+      }
+      .stats {
+        display: flex;
+        flex-direction: column;
+        border-left: 1px solid red;
+        padding-left: 0.8vw;
+        width: 5vw;
+        min-width: 80px;
+        flex-wrap: wrap;
+        align-content: center;
+      }
+
+      #about {
+        transform: translateY(5vw);
+        opacity: 0;
+      }
+
+      #about::after {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: #888888;
+        position: relative;
+        opacity: 0.3;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .glow-orb {
+          animation: none !important;
+        }
       }
     </style>
   </head>
@@ -197,7 +356,7 @@
         <img src="src/mmcLogo.png" alt="MMC" class="mainlogo" />
       </div>
       <div class="hero-text">
-        <h1>MSU <span style="color: red">MUSIC</span> CLUB</h1>
+        <h1>MSU <span class="red">MUSIC</span> CLUB</h1>
       </div>
       <div class="hero-desc">
         <h5>
@@ -206,20 +365,72 @@
         </h5>
       </div>
       <div class="hero-btn">
-        <a href="" class="hero-btn-chld red-btn discover">DISCOVER MMC</a>
-        <a href="" class="hero-btn-chld">UPCOMING EVENTS</a>
+        <a href="#" class="hero-btn-chld red-btn discover">DISCOVER MMC</a>
+        <a href="#" class="hero-btn-chld">UPCOMING EVENTS</a>
       </div>
       <div class="scroll-ele"></div>
     </section>
-    <section id="about"></section>
+    <!-- //section -->
+    <section id="about">
+      <div class="about-items">
+        <div class="about-sub-title">
+          <img src="src/music-player.png" alt="" />
+          <h6 class="smallest">WHAT IS MMC</h6>
+        </div>
+        <h2>MORE THAN A <span class="red">CLUB</span></h2>
+        <p>
+          <span class="white barlow">MMC — MSU Music Club</span> is the official
+          music society of Management & Science University (MSU), founded to
+          nurture musical talent, foster creativity, and build a vibrant
+          community around the love of music.
+          <br />
+          <br />
+
+          Whether you play guitar, sing, produce beats, or simply appreciate
+          great music, MMC is your home. We run workshops, open mic nights,
+          recording sessions, and our annual flagship concert — all student-led
+          and student-driven. <br />
+          <br />
+
+          We believe music has the power to connect, heal, and inspire. Our door
+          is open to every MSU student regardless of skill level — beginners and
+          seasoned performers alike are welcomed with equal enthusiasm.
+        </p>
+        <div class="about-stats">
+          <div class="stats">
+            <h6 class="big white counter" data-count="5">5+</h6>
+            <h6 class="smallest grey">YEARS ACTIVE</h6>
+          </div>
+          <div class="stats">
+            <h6 class="big white counter" data-count="300">300+</h6>
+            <h6 class="smallest grey">MEMBERS</h6>
+          </div>
+          <div class="stats">
+            <h6 class="big white counter" data-count="40">40+</h6>
+            <h6 class="smallest grey">EVENTS HELD</h6>
+          </div>
+        </div>
+      </div>
+      <div class="about-img">
+        <img src="src/Untitled design.jpg" alt="" />
+      </div>
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
+      gsap.registerPlugin(ScrollTrigger);
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
       function animateOrb(
         selector,
         { minScale, maxScale, minOpacity, maxOpacity, drift, duration }
       ) {
         const el = document.querySelector(selector);
+        if (!el) return;
 
         gsap.set(el, {
           xPercent: -50,
@@ -227,6 +438,8 @@
           scale: minScale,
           opacity: minOpacity,
         });
+
+        if (reduceMotion) return;
 
         gsap
           .timeline({
@@ -263,10 +476,50 @@
         drift: 60,
         duration: 5,
       });
+      gsap.to(".scroll-ele", {
+        "--offset": "12px",
+        duration: 1.5,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+      });
 
-      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        gsap.globalTimeline.pause();
-      }
+      gsap.to("#about", {
+        y: "0vw",
+        opacity: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        delay: 0.5,
+
+        scrollTrigger: {
+          trigger: "#about",
+          start: "top 80%", // when top of #about reaches 80% of viewport
+          end: "top 50%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      const statsSection = document.querySelector(".about-stats");
+
+      gsap.utils.toArray(".counter").forEach((counter) => {
+        const target = parseInt(counter.dataset.count, 10);
+        const counterObj = { val: 0 };
+
+        gsap.to(counterObj, {
+          val: target,
+          duration: 10,
+          ease: "power2.out",
+          snap: { val: 1 },
+          onUpdate() {
+            counter.textContent = Math.ceil(counterObj.val) + "+";
+          },
+          scrollTrigger: {
+            trigger: statsSection,
+            start: "top 80%",
+            once: true,
+          },
+        });
+      });
     </script>
   </body>
 </html>
