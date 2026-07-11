@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,60 +20,70 @@
         background-color: #0d0d0d;
       }
       h1 {
-        font-size: clamp(3.5rem, 12vw, 8rem);
+        font-size: 7.0317vw;
         font-family: "Barlow Condensed";
         font-weight: 900;
         color: white;
         line-height: 0.95;
       }
       h2 {
-        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-size: 4.1146vw;
         font-family: "Barlow Condensed";
         font-weight: 900;
         color: white;
       }
       h3 {
-        font-size: 2.25rem;
+        font-size: 2.2396vw;
       }
       h4 {
-        font-size: 1.875rem;
+        font-size: 1.9271vw;
       }
       h5 {
-        font-size: 1.25rem;
+        font-size: 1.4063vw;
         font-family: "DM Sans";
         color: #888888;
         font-weight: 500;
       }
       h6 {
-        font-size: 1.125rem;
+        font-size: 1.3021vw;
         font-family: "Barlow Condensed";
         color: white;
       }
       h6.big {
-        font-size: 1.875rem;
+        font-size: 1.9271vw;
         font-family: "Barlow Condensed";
       }
       p {
-        font-size: 0.833vw;
+        font-size: 1.1976vw;
         color: #888888;
         font-family: "DM Sans";
       }
       p.big {
-        font-size: 1.4rem;
+        font-size: 1.5313vw;
       }
       p.small {
-        font-size: 0.875rem;
+        font-size: 1.0938vw;
       }
       p.smaller {
-        font-size: 0.8rem;
+        font-size: 1.0313vw;
+      }
+      p.smallest {
+        font-size: 0.9896vw;
+      }
+      h6.small {
+        font-size: 1.2396vw;
       }
       h6.smallest {
         font-family: "Barlow Condensed";
-        font-size: 0.75rem;
+        font-size: 0.9896vw;
         color: red;
       }
       .barlow {
         font-family: "Barlow Condensed";
+      }
+      .dm {
+        font-family: "DM Sans";
+        font-weight: 400;
       }
       .grey {
         color: #888888 !important;
@@ -169,13 +178,13 @@
       .hero-btn-chld {
         font-family: "Barlow Condensed";
         font-weight: 700;
-        font-size: 0.875rem;
+        font-size: 1.0938vw;
         letter-spacing: 0.104vw;
         border: 0.078vw solid white;
         padding: 0.5vw 0.85vw;
         color: white;
         text-decoration: none;
-        width: 10vw;
+        width: 11vw;
         min-width: 140px;
         text-align: center;
         box-sizing: border-box;
@@ -231,7 +240,7 @@
         flex-wrap: wrap;
         padding-inline: 10vw;
         padding-block: 4vw;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         gap: 4vw;
       }
@@ -244,10 +253,10 @@
         gap: 2vw;
       }
       .about-items p {
-        width: 27vw;
+        width: 37.083vw;
         min-width: 280px;
       }
-      .about-sub-title {
+      .sub-title {
         display: flex;
         align-items: center;
         gap: 1.65vw;
@@ -256,9 +265,9 @@
           letter-spacing: 0.4vw;
         }
       }
-      .about-sub-title img {
-        width: 0.75rem;
-        height: 0.75rem;
+      .sub-title img {
+        width: 0.625vw;
+        height: 0.625vw;
       }
       .about-img {
         width: 35vw;
@@ -286,7 +295,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        font-size: 2.25rem;
+        font-size: 2.2396vw;
         font-weight: 900;
         position: absolute;
         top: -0.4vw;
@@ -320,7 +329,7 @@
         flex-direction: column;
         border-left: 1px solid red;
         padding-left: 0.8vw;
-        width: 5vw;
+        width: 6vw;
         min-width: 80px;
         flex-wrap: wrap;
         align-content: center;
@@ -338,6 +347,91 @@
         background-color: #888888;
         position: relative;
         opacity: 0.3;
+      }
+
+      #comm-section {
+        min-height: 100vh;
+        max-width: 100vw !important;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        padding-inline: 10vw;
+        padding-block: 4vw;
+        gap: 2vw;
+        /* justify-content: center; */
+        /* align-items: center; */
+
+        & p {
+          width: 41.406vw;
+        }
+      }
+
+      .accordion-items {
+        /* display: flex; */
+        max-width: 100vw;
+        /* flex-direction: column; */
+        position: relative;
+      }
+      .accordion-title {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 2vw;
+        height: 2vw;
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        padding: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        z-index: 20;
+        cursor: pointer;
+
+        & img {
+          width: 0.875vw;
+          height: 0.875vw;
+        }
+      }
+      .accordion-title .toggle-icon {
+        margin-left: auto;
+        width: 0.75vw !important;
+        height: 0.75vw !important;
+        transition: none;
+      }
+      .accordion-insides {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+        gap: 1vw; /* Optional spacing between items */
+
+        padding-inline: 1.042vw;
+        padding-top: 0;
+        padding-bottom: 1vw;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        top: -1.042vw;
+        z-index: 2;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .comm-box {
+        display: flex;
+        height: 4.063vw;
+        background-color: #1a1a1a;
+        align-items: center;
+        padding: 0.833vw;
+        max-width: 25.365vw;
+        gap: 1vw;
+        border-radius: 0.521vw;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+
+        & img {
+          width: 1.771vw;
+          height: 1.771vw;
+        }
+      }
+
+      #comm-section {
+        transform: translateY(5vw);
+        opacity: 0;
       }
 
       @media (prefers-reduced-motion: reduce) {
@@ -373,7 +467,7 @@
     <!-- //section -->
     <section id="about">
       <div class="about-items">
-        <div class="about-sub-title">
+        <div class="sub-title">
           <img src="src/music-player.png" alt="" />
           <h6 class="smallest">WHAT IS MMC</h6>
         </div>
@@ -398,15 +492,15 @@
         </p>
         <div class="about-stats">
           <div class="stats">
-            <h6 class="big white counter" data-count="5">5+</h6>
+            <h6 class="big white counter" data-count="5">0+</h6>
             <h6 class="smallest grey">YEARS ACTIVE</h6>
           </div>
           <div class="stats">
-            <h6 class="big white counter" data-count="300">300+</h6>
+            <h6 class="big white counter" data-count="300">0+</h6>
             <h6 class="smallest grey">MEMBERS</h6>
           </div>
           <div class="stats">
-            <h6 class="big white counter" data-count="40">40+</h6>
+            <h6 class="big white counter" data-count="40">0+</h6>
             <h6 class="smallest grey">EVENTS HELD</h6>
           </div>
         </div>
@@ -415,7 +509,261 @@
         <img src="src/Untitled design.jpg" alt="" />
       </div>
     </section>
-
+    <!-- section  -->
+    <section id="comm-section">
+      <div class="sub-title">
+        <img src="src/comms-icon.png" alt="" />
+        <h6 class="smallest">CURRENT COMMITTEE</h6>
+      </div>
+      <h2>THE PEOPLE BEHIND <span class="red">MMC</span></h2>
+      <p>
+        Our committee members are elected each year to lead, organise, and grow
+        the club — dedicated students who keep the music alive on campus.
+      </p>
+      <div class="comms-accordion-container">
+        <div class="accordion-items">
+          <div class="accordion-title">
+            <img src="src/comms-icon.png" alt="" />
+            <h6 class="small">HIGH COMMITTEE</h6>
+            <h6 class="smallest grey dm">(7)</h6>
+            <img src="src/down.png" alt="" class="toggle-icon" />
+          </div>
+          <div class="accordion-insides">
+            <div class="comm-box">
+              <img src="src/comms-icon.png" alt="" />
+              <div class="comm-details">
+                <p class="small white">Dee</p>
+                <p class="smallest">PRESIDENT</p>
+              </div>
+            </div>
+            <div class="comm-box">
+              <img src="src/comms-icon.png" alt="" />
+              <div class="comm-details">
+                <p class="small white">Shah</p>
+                <p class="smallest">VICE PRESIDENT I</p>
+              </div>
+            </div>
+            <div class="comm-box">
+              <img src="src/comms-icon.png" alt="" />
+              <div class="comm-details">
+                <p class="small white">Haikal</p>
+                <p class="smallest">VICE PRESIDENT II</p>
+              </div>
+            </div>
+            <div class="comm-box">
+              <img src="src/comms-icon.png" alt="" />
+              <div class="comm-details">
+                <p class="small white">Rina</p>
+                <p class="smallest">SECRETARY</p>
+              </div>
+            </div>
+            <div class="comm-box">
+              <img src="src/comms-icon.png" alt="" />
+              <div class="comm-details">
+                <p class="small white">Albert</p>
+                <p class="smallest">VICE SECRETARY</p>
+              </div>
+            </div>
+            <div class="comm-box">
+              <img src="src/comms-icon.png" alt="" />
+              <div class="comm-details">
+                <p class="small white">Iman Noel</p>
+                <p class="smallest">TREASURER</p>
+              </div>
+            </div>
+            <div class="comm-box">
+              <img src="src/comms-icon.png" alt="" />
+              <div class="comm-details">
+                <p class="small white">Nisha</p>
+                <p class="smallest">VICE TREASURER</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comms-accordion-container">
+          <div class="accordion-items">
+            <div class="accordion-title">
+              <img src="src/comms-icon.png" alt="" />
+              <h6 class="small">MEDIA DEPARTMENT</h6>
+              <h6 class="smallest grey dm">(2)</h6>
+              <img src="src/down.png" alt="" class="toggle-icon" />
+            </div>
+            <div class="accordion-insides">
+              <div class="comm-box">
+                <img src="src/comms-icon.png" alt="" />
+                <div class="comm-details">
+                  <p class="small white">Inan</p>
+                  <p class="smallest">HEAD OF MEDIA DEPARTMENT</p>
+                </div>
+              </div>
+              <div class="comm-box">
+                <img src="src/comms-icon.png" alt="" />
+                <div class="comm-details">
+                  <p class="small white">Farwizah</p>
+                  <p class="smallest">EXCO MEDIA</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comms-accordion-container">
+          <div class="accordion-items">
+            <div class="accordion-title">
+              <img src="src/comms-icon.png" alt="" />
+              <h6 class="small">PROTOCOL DEPARTMENT</h6>
+              <h6 class="smallest grey dm">(2)</h6>
+              <img src="src/down.png" alt="" class="toggle-icon" />
+            </div>
+            <div class="accordion-insides">
+              <div class="comm-box">
+                <img src="src/comms-icon.png" alt="" />
+                <div class="comm-details">
+                  <p class="small white">Ammar</p>
+                  <p class="smallest">HEAD OF PROTOCOL DEPARTMENT</p>
+                </div>
+              </div>
+              <div class="comm-box">
+                <img src="src/comms-icon.png" alt="" />
+                <div class="comm-details">
+                  <p class="small white">Arfan</p>
+                  <p class="smallest">EXCO PROTOCOL</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="comms-accordion-container">
+          <div class="accordion-items">
+            <div class="accordion-title">
+              <img src="src/comms-icon.png" alt="" />
+              <h6 class="small">LOGISTIC DEPARTMENT</h6>
+              <h6 class="smallest grey dm">(1)</h6>
+              <img src="src/down.png" alt="" class="toggle-icon" />
+            </div>
+            <div class="accordion-insides">
+              <div class="comm-box">
+                <img src="src/comms-icon.png" alt="" />
+                <div class="comm-details">
+                  <p class="small white">Imran</p>
+                  <p class="smallest">HEAD OF LOGISTIC DEPARTMENT</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comms-accordion-container">
+            <div class="accordion-items">
+              <div class="accordion-title">
+                <img src="src/comms-icon.png" alt="" />
+                <h6 class="small">PUBLIC RELATIONS</h6>
+                <h6 class="smallest grey dm">(2)</h6>
+                <img src="src/down.png" alt="" class="toggle-icon" />
+              </div>
+              <div class="accordion-insides">
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Afi</p>
+                    <p class="smallest">HEAD OF PUBLIC RELATIONS</p>
+                  </div>
+                </div>
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Amirul</p>
+                    <p class="smallest">EXCO PUBLIC RELATIONS</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comms-accordion-container">
+            <div class="accordion-items">
+              <div class="accordion-title">
+                <img src="src/comms-icon.png" alt="" />
+                <h6 class="small">TALENT TRAINING</h6>
+                <h6 class="smallest grey dm">(2)</h6>
+                <img src="src/down.png" alt="" class="toggle-icon" />
+              </div>
+              <div class="accordion-insides">
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Alvin</p>
+                    <p class="smallest">HEAD OF TALENT TRAINING</p>
+                  </div>
+                </div>
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Maria</p>
+                    <p class="smallest">EXCO TALENT TRAINING</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comms-accordion-container">
+            <div class="accordion-items">
+              <div class="accordion-title">
+                <img src="src/comms-icon.png" alt="" />
+                <h6 class="small">TALENT RECRUITMENT</h6>
+                <h6 class="smallest grey dm">(2)</h6>
+                <img src="src/down.png" alt="" class="toggle-icon" />
+              </div>
+              <div class="accordion-insides">
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Syazmirul</p>
+                    <p class="smallest">HEAD OF TALENT RECRUITMENT</p>
+                  </div>
+                </div>
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Neena</p>
+                    <p class="smallest">EXCO TALENT RECRUITMENT</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="comms-accordion-container">
+            <div class="accordion-items">
+              <div class="accordion-title">
+                <img src="src/comms-icon.png" alt="" />
+                <h6 class="small">TECHNICAL TEAM</h6>
+                <h6 class="smallest grey dm">(3)</h6>
+                <img src="src/down.png" alt="" class="toggle-icon" />
+              </div>
+              <div class="accordion-insides">
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Acap</p>
+                    <p class="smallest">HEAD OF TECHNICAL TEAM</p>
+                  </div>
+                </div>
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Copi</p>
+                    <p class="smallest">EXCO TECHNICAL TEAM</p>
+                  </div>
+                </div>
+                <div class="comm-box">
+                  <img src="src/comms-icon.png" alt="" />
+                  <div class="comm-details">
+                    <p class="small white">Dame</p>
+                    <p class="smallest">EXCO TECHNICAL TEAM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script>
@@ -519,6 +867,89 @@
             once: true,
           },
         });
+      });
+
+      /* ---------- Committee accordion ---------- */
+      // padding-top/padding-bottom values .accordion-insides uses when open
+      const INSIDES_PAD_TOP_VW = 1.979;
+      const INSIDES_PAD_BOTTOM_VW = 1.042;
+
+      function vwToPx(vw) {
+        return (window.innerWidth * vw) / 100;
+      }
+
+      document.querySelectorAll(".accordion-items").forEach((item) => {
+        const title = item.querySelector(":scope > .accordion-title");
+        const insides = item.querySelector(":scope > .accordion-insides");
+        const icon = title.querySelector(".toggle-icon");
+        if (!title || !insides) return;
+
+        // start fully closed: no height, no padding, so no leftover gap
+        gsap.set(insides, {
+          height: 0,
+          opacity: 0,
+          paddingTop: 0,
+          paddingBottom: "1vw",
+        });
+        let isOpen = false;
+
+        title.addEventListener("click", () => {
+          isOpen = !isOpen;
+
+          if (icon) {
+            gsap.to(icon, {
+              rotation: isOpen ? 180 : 0,
+              duration: 0.35,
+              ease: "power2.out",
+              transformOrigin: "50% 50%",
+            });
+          }
+
+          if (isOpen) {
+            // measure the full height WITH padding applied, then animate up to it
+            gsap.set(insides, {
+              height: "auto",
+              paddingTop: vwToPx(INSIDES_PAD_TOP_VW),
+              paddingBottom: "1vw",
+            });
+            const fullHeight = insides.offsetHeight;
+            gsap.fromTo(
+              insides,
+              { height: 0, opacity: 0, paddingTop: 0, paddingBottom: 0 },
+              {
+                height: fullHeight,
+                opacity: 1,
+                paddingTop: vwToPx(INSIDES_PAD_TOP_VW),
+                paddingBottom: "1vw",
+                duration: 0.45,
+                ease: "power2.inOut",
+              }
+            );
+          } else {
+            gsap.to(insides, {
+              height: 0,
+              opacity: 0,
+              paddingTop: 0,
+              paddingBottom: "1vw",
+              duration: 0.4,
+              ease: "power2.inOut",
+            });
+          }
+        });
+      });
+      gsap.to("#comm-section", {
+        y: "0vw",
+        opacity: 1,
+        duration: 1.2,
+        ease: "power3.out",
+        delay: 0.5,
+
+        scrollTrigger: {
+          trigger: "#comm-section",
+          start: "top 80%", // when top of #about reaches 80% of viewport
+          end: "top 50%",
+          toggleActions: "play none none reverse",
+        },
       });
     </script>
   </body>
