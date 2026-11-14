@@ -1,0 +1,59 @@
+/* =====================================================================
+   MMC v3 — responsive layer
+   ≥1024: the full room with side panels.
+   760–1023: narrower panels, dock keeps names.
+   <760: panels become bottom sheets over the room, the camera pulls back
+   (world.js), the dock shrinks to LED + short label.
+   ===================================================================== */
+@media (max-width: 1023px) {
+  .panel { width: min(460px, 100%); }
+  .depts { gap: 0 20px; }
+  .foot__grid { grid-template-columns: 1fr 1fr; }
+  .foot__grid > div:last-child { grid-column: 1 / -1; }
+  .dock a { width: 62px; }
+}
+
+@media (max-width: 759px) {
+  :root { --dock-h: 60px; --top-h: 56px; --t-body: 1rem; }
+  .topbar__logo { width: 60px; }
+  .chip { padding: 0 10px; font-size: 0.62rem; }
+  .topbar .chip--red { display: none; }
+
+  .dock { left: 8px; right: 8px; transform: none; padding: 4px; }
+  .dock ol { justify-content: space-between; gap: 2px; }
+  .dock li { flex: 1; }
+  .dock a { width: auto; min-height: 50px; padding: 5px 2px; }
+  .dock__no { display: none; }
+  .dock__name { font-size: 0.52rem; letter-spacing: 0.02em; }
+
+  .ch { padding-left: max(12px, env(safe-area-inset-left, 0px)); padding-right: max(12px, env(safe-area-inset-right, 0px)); }
+  .panel, .panel--wide, .panel--people, .panel--join { width: 100%; margin-left: 0; margin-right: 0; margin-bottom: 62vh; padding: 20px 18px; background: rgba(10,10,11,.9); }
+  .voice { margin-bottom: 58vh; }
+  .spacer { height: 34vh; }
+  .spacer--tall { height: 90vh; }
+  .depts { grid-template-columns: minmax(0, 1fr); }
+  .why { grid-template-columns: minmax(0, 1fr); }
+  .join-box dl { grid-template-columns: minmax(0, 1fr); }
+  .knobs li { grid-template-columns: 36px minmax(0, 1fr); gap: 10px; }
+  .knob { width: 32px; height: 32px; }
+
+  .ch--intro { padding-bottom: calc(var(--dock-h) + 70px + env(safe-area-inset-bottom, 0px)); }
+  .intro { gap: 12px; }
+  .intro__copy p:nth-child(2) { display: none; }
+  .intro__ctas .btn { flex: 1 1 auto; }
+  .ticker { bottom: calc(var(--dock-h) + 18px + env(safe-area-inset-bottom, 0px)); }
+  .ticker span { font-size: 0.66rem; padding: 8px 16px; }
+  .loader { bottom: calc(var(--dock-h) + 58px + env(safe-area-inset-bottom, 0px)); }
+
+  .foot__grid { grid-template-columns: minmax(0, 1fr); }
+  .contact li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+@media (max-width: 370px) {
+  .dock__name { font-size: 0.48rem; }
+  .chip__label { font-size: 0.58rem; }
+}
+
+@media (hover: none) {
+  .hint { display: none !important; }
+}

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>MMC — MSU Music Club</title>
+  <meta name="description" content="MSU Music Club (MMC) is a student-led music community at Management & Science University, Malaysia. Turn up. Stand out. Make noise." />
+  <meta name="theme-color" content="#0b0b0b" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="MMC — MSU Music Club" />
+  <meta property="og:description" content="Different sounds. One community. The student music club of Management & Science University." />
+  <meta property="og:image" content="assets/images/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32.png" />
+  <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
+
+  <script>
+    (function () {
+      var h = document.documentElement;
+      h.classList.remove("no-js"); h.classList.add("js");
+      if (matchMedia("(prefers-reduced-motion: reduce)").matches) h.classList.add("reduced");
+      setTimeout(function () { if (!h.classList.contains("anim-ready")) h.classList.add("no-anim"); }, 4000);
+    })();
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Special+Gothic+Expanded+One&family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;600&family=Familjen+Grotesk:wght@400;500;700&display=swap" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <script type="importmap">
+    { "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.min.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    } }
+  </script>
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- The rehearsal room (decorative WebGL). Static still underneath for no-WebGL. -->
+  <div class="room-still" aria-hidden="true"></div>
+  <canvas id="stage" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ===================== TOP BAR ===================== -->
+  <header class="topbar">
+    <a class="topbar__logo" href="#intro" aria-label="MSU Music Club, back to the top"><img src="assets/images/mmc-logo.webp" width="640" height="455" alt="" /></a>
+    <div class="topbar__right">
+      <button class="chip" id="btn-sound" type="button" aria-pressed="false">
+        <span class="chip__led" aria-hidden="true"></span><span class="chip__label">Sound off</span>
+      </button>
+      <button class="chip" id="btn-loop" type="button" aria-pressed="false" hidden>
+        <span class="chip__label">Play loop</span>
+      </button>
+      <a class="chip chip--red" href="#join">Join MMC</a>
+      <button class="chip" id="btn-menu" type="button" aria-expanded="false" aria-controls="menu"><span class="chip__label">Menu</span></button>
+    </div>
+  </header>
+
+  <nav class="menu" id="menu" aria-label="Site" hidden>
+    <ul>
+      <li><a href="#who">About</a></li>
+      <li><a href="#sound">Find your sound</a></li>
+      <li><a href="#experience">Activities</a></li>
+      <li><a href="#radar">Events</a></li>
+      <li><a href="#process">Behind the sound</a></li>
+      <li><a href="#people">Committee</a></li>
+      <li><a href="#archive">Archive</a></li>
+      <li><a href="#spotlight">Member spotlight</a></li>
+      <li><a href="#join">Join</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ===================== PEDAL DOCK (chapter navigation) ===================== -->
+  <nav class="dock" aria-label="Chapters">
+    <ol>
+      <li><a href="#intro" data-ch="0"><span class="dock__led"></span><span class="dock__no">00</span><span class="dock__name">Intro</span></a></li>
+      <li><a href="#who" data-ch="1" class="p-fuzz"><span class="dock__led"></span><span class="dock__no">Fuzz</span><span class="dock__name">About</span></a></li>
+      <li><a href="#sound" data-ch="2" class="p-chorus"><span class="dock__led"></span><span class="dock__no">Chorus</span><span class="dock__name">Sound</span></a></li>
+      <li><a href="#experience" data-ch="3" class="p-echo"><span class="dock__led"></span><span class="dock__no">Echo</span><span class="dock__name">Activities</span></a></li>
+      <li><a href="#process" data-ch="4" class="p-looper"><span class="dock__led"></span><span class="dock__no">Looper</span><span class="dock__name">Process</span></a></li>
+      <li><a href="#people" data-ch="5" class="p-tuner"><span class="dock__led"></span><span class="dock__no">Tuner</span><span class="dock__name">People</span></a></li>
+      <li><a href="#archive" data-ch="6" class="p-room"><span class="dock__led"></span><span class="dock__no">Room</span><span class="dock__name">Archive</span></a></li>
+      <li><a href="#join" data-ch="7" class="p-boost"><span class="dock__led"></span><span class="dock__no">Boost</span><span class="dock__name">Join</span></a></li>
+    </ol>
+  </nav>
+
+  <div class="loader" id="loader" role="status" aria-live="polite"><span class="loader__bar"></span><span class="mono" data-msg>Plugging in</span></div>
+  <div class="hint mono" id="hint" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+  <main id="main">
+
+    <!-- ============ 01 · THE OPENING ACT ============ -->
+    <section class="ch ch--intro" id="intro" aria-labelledby="intro-title" data-chapter="0">
+      <div class="beat" data-shot="hero"></div>
+      <div class="intro">
+        <p class="eyebrow mono">Management &amp; Science University presents</p>
+        <h1 class="intro__title" id="intro-title" tabindex="-1">This is MMC.</h1>
+        <p class="intro__tag">Turn up. Stand out. Make noise.</p>
+        <div class="intro__copy">
+          <p>Music doesn't begin on stage. It begins with a sound, an idea, a rhythm, or a group of people who share the same passion.</p>
+          <p>At MSU Music Club, those moments bring us together. From first-time performers to experienced musicians, MMC is a space to explore your sound, develop your talent, and become part of something bigger.</p>
+        </div>
+        <div class="intro__ctas">
+          <a class="btn btn--red" href="#who">Explore MMC</a>
+          <a class="btn" href="#join">Join the club</a>
+        </div>
+        <p class="intro__how mono">Scroll to step through the board. Click the gear in the room to play it.</p>
+      </div>
+      <div class="ticker" aria-label="MMC mottos">
+        <div class="ticker__track">
+          <span>Made for the music.</span><span>Built by the community.</span><span>Every sound has a story.</span><span>Different sounds. One community.</span>
+          <span aria-hidden="true">Made for the music.</span><span aria-hidden="true">Built by the community.</span><span aria-hidden="true">Every sound has a story.</span><span aria-hidden="true">Different sounds. One community.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 · MORE THAN MUSIC — FUZZ ============ -->
+    <section class="ch" id="who" aria-labelledby="who-title" data-chapter="1">
+      <div class="beat" data-shot="fuzz"></div>
+      <article class="panel panel--right">
+        <p class="eyebrow mono"><span class="pedal-tag p-fuzz">Fuzz</span> Who we are</p>
+        <h2 id="who-title" tabindex="-1">Not just a club. <span class="serif">A community built around sound.</span></h2>
+        <p>Music is more than something we listen to. It's something we create, perform, experience, and share.</p>
+        <p>MSU Music Club is a student-led community at Management &amp; Science University that brings together people with a shared passion for music. Whether you're a vocalist, guitarist, drummer, producer, songwriter, instrumentalist, or simply someone who loves being surrounded by music, MMC is a place to connect.</p>
+        <p>We believe music should be explored, not restricted. It doesn't matter whether you're stepping onto a stage for the first time or you've been performing for years. What matters is the passion you bring.</p>
+      </article>
+      <div class="spacer" aria-hidden="true"></div>
+      <article class="panel panel--right panel--knobs">
+        <h3 class="mono">Our philosophy</h3>
+        <ol class="knobs">
+          <li><span class="knob" aria-hidden="true"><i></i></span><div><b>Express.</b> Find your voice, discover your style, and make music that represents you.</div></li>
+          <li><span class="knob" aria-hidden="true"><i></i></span><div><b>Connect.</b> Meet people who share your passion. Create friendships, collaborations, and memories through music.</div></li>
+          <li><span class="knob" aria-hidden="true"><i></i></span><div><b>Evolve.</b> Keep learning, experimenting, practising, and discovering what you're capable of.</div></li>
+          <li><span class="knob" aria-hidden="true"><i></i></span><div><b>Perform.</b> Turn preparation into performance and share your creativity with others.</div></li>
+        </ol>
+        <p class="statement serif">Different people. Different sounds. One community.</p>
+      </article>
+    </section>
+
+    <!-- ============ 03 · FIND YOUR SOUND — CHORUS ============ -->
+    <section class="ch" id="sound" aria-labelledby="sound-title" data-chapter="2">
+      <div class="beat" data-shot="chorus"></div>
+      <article class="panel panel--left">
+        <p class="eyebrow mono"><span class="pedal-tag p-chorus">Chorus</span> Every sound belongs</p>
+        <h2 id="sound-title" tabindex="-1">What's your frequency?</h2>
+        <p>There is no single way to experience music. Some people live for the stage. Others prefer the studio, the rehearsal room, or the creative process behind a performance. Wherever your interests lie, there's a place for your passion to grow.</p>
+        <p class="note mono">Six voices, one chorus. These are areas of interest, not formal club divisions.</p>
+      </article>
+
+      <div class="voices">
+        <article class="panel panel--left voice" data-shot="inst-vocals">
+          <p class="voice__no mono">01 / 06 · The voice</p>
+          <h3>Vocals</h3>
+          <p>Every voice carries a story. Explore your vocal identity, develop confidence, and discover the possibilities of musical expression.</p>
+          <button class="btn btn--small play" type="button" data-play="mic">Check the mic</button>
+        </article>
+        <article class="panel panel--left voice" data-shot="inst-strings">
+          <p class="voice__no mono">02 / 06 · The strings</p>
+          <h3>Guitar &amp; bass</h3>
+          <p>From subtle melodies to powerful riffs, strings bring character, energy, and emotion to music. Explore rhythm, melody, and the art of playing together.</p>
+          <div class="play-row"><button class="btn btn--small play" type="button" data-play="guitar">Strum the guitar</button><button class="btn btn--small play" type="button" data-play="bass">Pluck the bass</button></div>
+        </article>
+        <article class="panel panel--right voice" data-shot="inst-rhythm">
+          <p class="voice__no mono">03 / 06 · The rhythm</p>
+          <h3>Drums &amp; percussion</h3>
+          <p>The heartbeat behind the music. Discover the power of timing, groove, coordination, and musical energy.</p>
+          <div class="play-row"><button class="btn btn--small play" type="button" data-play="kick">Kick</button><button class="btn btn--small play" type="button" data-play="snare">Snare</button><button class="btn btn--small play" type="button" data-play="hat">Hi-hat</button><button class="btn btn--small play" type="button" data-play="crash">Crash</button></div>
+        </article>
+        <article class="panel panel--left voice" data-shot="inst-melody">
+          <p class="voice__no mono">04 / 06 · The melody</p>
+          <h3>Keys &amp; instruments</h3>
+          <p>Every chord can change the feeling of a song. Explore harmony, musical arrangements, and the possibilities of instrumental expression.</p>
+          <button class="btn btn--small play" type="button" data-play="keys">Play a chord</button>
+        </article>
+        <article class="panel panel--left voice" data-shot="inst-creation">
+          <p class="voice__no mono">05 / 06 · The creation</p>
+          <h3>Songwriting &amp; production</h3>
+          <p>Every song begins somewhere. Turn ideas into lyrics, melodies, arrangements, and original musical concepts.</p>
+          <button class="btn btn--small play" type="button" data-play="desk">Push the faders</button>
+        </article>
+        <article class="panel panel--right voice" data-shot="inst-stage">
+          <p class="voice__no mono">06 / 06 · The stage</p>
+          <h3>Live performance</h3>
+          <p>A performance is more than playing the right notes. It's about presence, confidence, communication, and creating a moment people remember.</p>
+          <a class="btn btn--red btn--small" href="#join">Discover your sound</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- ============ 04 · THE MMC EXPERIENCE + 05 · ON THE RADAR — ECHO ============ -->
+    <section class="ch" id="experience" aria-labelledby="exp-title" data-chapter="3">
+      <div class="beat" data-shot="echo"></div>
+      <article class="panel panel--left panel--wide">
+        <p class="eyebrow mono"><span class="pedal-tag p-echo">Echo</span> What happens at MMC</p>
+        <h2 id="exp-title" tabindex="-1">The music doesn't stop <span class="serif">when the song ends.</span></h2>
+        <p>Music is built through experiences. The rehearsals. The mistakes. The breakthroughs. The first performances. The people you meet along the way. Explore the kinds of musical activities and opportunities associated with the MMC community.</p>
+
+        <!-- TODO(MMC): confirm which of these activities MMC currently runs, then delete data-todo below. -->
+        <ol class="echoes" data-todo="activity list">
+          <li><span class="mono">01</span><div><h3 data-echo="Live performances">Live performances</h3><p class="echoes__tag serif">The stage is yours.</p><p>Music is meant to be experienced. Live performances bring musicians and audiences together, turning hours of practice into shared moments.</p></div></li>
+          <li><span class="mono">02</span><div><h3 data-echo="Open mic sessions">Open mic sessions</h3><p class="echoes__tag serif">One mic. Endless possibilities.</p><p>Sometimes all you need is the courage to start. Open mic sessions give musicians a welcoming setting to express themselves, experiment, and build confidence.</p></div></li>
+          <li><span class="mono">03</span><div><h3 data-echo="Music workshops">Music workshops</h3><p class="echoes__tag serif">Learn it. Play it. Own it.</p><p>Musical growth never stops. Workshops create chances to explore techniques, exchange knowledge, and learn alongside fellow music enthusiasts.</p></div></li>
+          <li><span class="mono">04</span><div><h3 data-echo="Rehearsals &amp; jams">Rehearsals &amp; jams</h3><p class="echoes__tag serif">Find the groove.</p><p>Great music often begins with musicians playing together. Rehearsals and jam sessions encourage experimentation, collaboration, and new ideas.</p></div></li>
+          <li><span class="mono">05</span><div><h3 data-echo="Recording &amp; creation">Recording &amp; creation</h3><p class="echoes__tag serif">From an idea to a sound.</p><p>A melody, a lyric, or a simple rhythm can become something bigger. Explore the process of developing, arranging, and recording music.</p></div></li>
+          <li><span class="mono">06</span><div><h3 data-echo="Community">Community &amp; collaboration</h3><p class="echoes__tag serif">Good music. Better connections.</p><p>The best part of music is often the people you share it with. MMC brings together students with different influences, talents, and experiences.</p></div></li>
+        </ol>
+      </article>
+
+      <div class="spacer" aria-hidden="true"></div>
+
+      <article class="panel panel--right" id="radar" aria-labelledby="radar-title" data-shot="setlist">
+        <p class="eyebrow mono">Events &amp; happenings</p>
+        <h2 id="radar-title" tabindex="-1">The next big sound <span class="serif">is just around the corner.</span></h2>
+        <p>Every performance begins with a date. Every event begins with people who are ready to make something happen. Stay connected with MMC's upcoming performances, workshops, and community events.</p>
+        <ol class="cues">
+          <!--
+            TODO(MMC): ADD VERIFIED EVENTS HERE. Delete the .cue--empty item, then copy this once per event:
+
+            <li class="cue">
+              <img class="cue__poster" src="assets/images/events/POSTER.webp" width="600" height="800" alt="Official poster for EVENT NAME" loading="lazy">
+              <div>
+                <p class="cue__meta mono"><time datetime="2026-12-05T20:00">05 Dec 2026 · 8:00 PM</time> · Category</p>
+                <h3>Official event name</h3>
+                <p class="cue__venue">Venue, MSU</p>
+                <p>Short description.</p>
+                <p class="cue__status mono">Open / Sold out / Members only</p>
+                <a class="btn btn--small" href="https://registration-link">Explore event</a>
+              </div>
+            </li>
+          -->
+          <li class="cue cue--empty">
+            <p class="cue__meta mono">Setlist · nothing scheduled</p>
+            <h3>The stage is quiet. <span class="serif">For now.</span></h3>
+            <p>Nothing has been announced yet. Keep an eye on this space and MMC's official channels for the next performance, gathering, or musical experience.</p>
+            <a class="btn btn--small" href="#contact">Follow MMC for updates</a>
+          </li>
+        </ol>
+      </article>
+    </section>
+
+    <!-- ============ 06 · BEHIND THE SOUND — LOOPER ============ -->
+    <section class="ch" id="process" aria-labelledby="process-title" data-chapter="4">
+      <article class="panel panel--left" data-shot="loop-idea">
+        <p class="eyebrow mono"><span class="pedal-tag p-looper">Looper</span> The creative process</p>
+        <h2 id="process-title" tabindex="-1">Before the applause. <span class="serif">There's the work.</span></h2>
+        <p>The final performance is only part of the story. Behind every musical moment are ideas, preparation, teamwork, and hours spent bringing everything together.</p>
+        <div class="loop mono" aria-hidden="true"><span class="loop__ring"></span><span class="loop__txt">Layer 1 · Record</span></div>
+        <h3><span class="mono step">01</span> The idea</h3>
+        <p>It starts with inspiration. A melody, a rhythm, a conversation, or the desire to create something different.</p>
+      </article>
+      <article class="panel panel--right" data-shot="loop-practice">
+        <div class="loop mono" aria-hidden="true"><span class="loop__ring"></span><span class="loop__txt">Layer 2 · Overdub</span></div>
+        <h3><span class="mono step">02</span> The practice</h3>
+        <p>Ideas become stronger through repetition. Musicians experiment, refine their techniques, and learn to work together.</p>
+      </article>
+      <article class="panel panel--right" data-shot="loop-production">
+        <div class="loop mono" aria-hidden="true"><span class="loop__ring"></span><span class="loop__txt">Layer 3 · Overdub</span></div>
+        <h3><span class="mono step">03</span> The production</h3>
+        <p>A performance involves more than the people on stage. Equipment, technical coordination, logistics, media, and event organisation all contribute to the experience.</p>
+      </article>
+      <article class="panel panel--left panel--moment" data-shot="loop-moment">
+        <div class="loop mono" aria-hidden="true"><span class="loop__ring"></span><span class="loop__txt">Layer 4 · Play</span></div>
+        <h3><span class="mono step">04</span> The moment</h3>
+        <p>The lights come on. The music begins. And everything that happened behind the scenes becomes part of the performance.</p>
+        <p class="statement serif">The crowd hears the music. We know what it took to make it.</p>
+      </article>
+    </section>
+
+    <!-- ============ 07 · FACES BEHIND THE FREQUENCIES — TUNER ============ -->
+    <section class="ch" id="people" aria-labelledby="people-title" data-chapter="5">
+      <div class="beat" data-shot="tuner"></div>
+      <article class="panel panel--wide panel--people">
+        <p class="eyebrow mono"><span class="pedal-tag p-tuner">Tuner</span> The people of MMC</p>
+        <h2 id="people-title" tabindex="-1">The people behind <span class="serif">the noise.</span></h2>
+        <p>A music community doesn't run on sound alone. Behind the performances, activities, and creative experiences is a team keeping everything moving. MMC's committee supports the club through leadership, coordination, communication, technical preparation, and talent development.</p>
+        <!-- TODO(MMC): confirm the current session's roster. Names below are the nicknames from the previous MMC site.
+             Add full names / photos / statements only with each member's approval, then delete data-todo. -->
+        <p class="note mono" data-todo="roster">Names as listed on the previous MMC site. Current session, full names and photos to be confirmed.</p>
+        <div class="depts">
+          <section class="dept" data-tune="HIGH">
+            <h3>High Committee <span class="serif">The direction</span></h3>
+            <p>The leadership team guiding MMC, coordinating its objectives, and supporting the club's activities.</p>
+            <ul class="crew"><li><b>Dee</b> President</li><li><b>Shah</b> Vice President I</li><li><b>Haikal</b> Vice President II</li><li><b>Rina</b> Secretary</li><li><b>Albert</b> Vice Secretary</li><li><b>Iman Noel</b> Treasurer</li><li><b>Nisha</b> Vice Treasurer</li></ul>
+          </section>
+          <section class="dept" data-tune="MEDIA">
+            <h3>Media <span class="serif">The storytellers</span></h3>
+            <p>Capturing moments, documenting experiences, and communicating MMC's identity through visual content.</p>
+            <ul class="crew"><li><b>Inan</b> Head of Media</li><li><b>Farwizah</b> Exco Media</li></ul>
+          </section>
+          <section class="dept" data-tune="PR">
+            <h3>Public Relations <span class="serif">The connection</span></h3>
+            <p>Supporting communication, outreach, and relationships that help MMC connect with its community.</p>
+            <ul class="crew"><li><b>Afi</b> Head of Public Relations</li><li><b>Amirul</b> Exco Public Relations</li></ul>
+          </section>
+          <section class="dept" data-tune="PROTO">
+            <h3>Protocol <span class="serif">The coordination</span></h3>
+            <p>Supporting event procedures, formal arrangements, and organised activities.</p>
+            <ul class="crew"><li><b>Ammar</b> Head of Protocol</li><li><b>Arfan</b> Exco Protocol</li></ul>
+          </section>
+          <section class="dept" data-tune="LOGI">
+            <h3>Logistics <span class="serif">The foundation</span></h3>
+            <p>Helping ensure equipment, spaces, and practical arrangements are ready for club activities.</p>
+            <ul class="crew"><li><b>Imran</b> Head of Logistics</li></ul>
+          </section>
+          <section class="dept" data-tune="TECH">
+            <h3>Technical Team <span class="serif">The system</span></h3>
+            <p>Supporting sound-related technical requirements, equipment preparation, and performance operations.</p>
+            <ul class="crew"><li><b>Acap</b> Head of Technical Team</li><li><b>Copi</b> Exco Technical Team</li><li><b>Dame</b> Exco Technical Team</li></ul>
+          </section>
+          <section class="dept" data-tune="RECRUIT">
+            <h3>Talent Recruitment <span class="serif">The discovery</span></h3>
+            <p>Helping MMC reach students interested in contributing their musical talents.</p>
+            <ul class="crew"><li><b>Syazmirul</b> Head of Talent Recruitment</li><li><b>Neena</b> Exco Talent Recruitment</li></ul>
+          </section>
+          <section class="dept" data-tune="TRAIN">
+            <h3>Talent Training <span class="serif">The development</span></h3>
+            <p>Supporting musical growth, learning, and opportunities for members to develop their abilities.</p>
+            <ul class="crew"><li><b>Alvin</b> Head of Talent Training</li><li><b>Maria</b> Exco Talent Training</li></ul>
+          </section>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ 08 · THE ARCHIVE + 09 · MEMBER SPOTLIGHT — ROOM ============ -->
+    <section class="ch" id="archive" aria-labelledby="archive-title" data-chapter="6">
+      <div class="beat" data-shot="archive"></div>
+      <article class="panel panel--left">
+        <p class="eyebrow mono"><span class="pedal-tag p-room">Room</span> Moments that resonate</p>
+        <h2 id="archive-title" tabindex="-1">The music fades. <span class="serif">The moments don't.</span></h2>
+        <p>Some moments last longer than the final note. The energy before a performance. The excitement behind the scenes. The laughter between rehearsals. The people who make it all worthwhile. This is where MMC's memories live.</p>
+        <div class="filters" role="group" aria-label="Filter the archive">
+          <button class="filter" type="button" data-cat="all" aria-pressed="true">All <span class="mono" data-count="all"></span></button>
+          <button class="filter" type="button" data-cat="stage" aria-pressed="false">On stage <span class="mono" data-count="stage"></span></button>
+          <button class="filter" type="button" data-cat="backstage" aria-pressed="false">Backstage <span class="mono" data-count="backstage"></span></button>
+          <button class="filter" type="button" data-cat="sessions" aria-pressed="false">The sessions <span class="mono" data-count="sessions"></span></button>
+          <button class="filter" type="button" data-cat="community" aria-pressed="false">The community <span class="mono" data-count="community"></span></button>
+        </div>
+        <p class="filter-desc" id="filter-desc">Every photo in the archive.</p>
+      </article>
+      <div class="spacer spacer--tall" aria-hidden="true" data-shot="archive-deep"></div>
+      <article class="panel panel--wide panel--sheet">
+        <h3 class="mono">Contact sheet · <span id="sheet-count"></span></h3>
+        <ul class="sheet" id="sheet"></ul>
+        <!-- TODO(MMC): Backstage and Sessions have no photos yet. Add images to assets/images/gallery and list them in js/main.js (PHOTOS). -->
+        <p class="note mono sheet-empty" id="sheet-empty" hidden data-todo="photos">No photos in this category yet. MMC Media to add.</p>
+        <button class="btn btn--red" type="button" id="open-archive">Explore the archive</button>
+      </article>
+
+      <article class="panel panel--right" id="spotlight" aria-labelledby="spot-title" data-shot="spotlight">
+        <p class="eyebrow mono">The sound of our people</p>
+        <h2 id="spot-title" tabindex="-1">Every musician <span class="serif">has a story.</span></h2>
+        <p>Behind every instrument is a person. Behind every performance is a journey. Some members are discovering their musical identity. Others are exploring new styles, learning new skills, or gaining confidence through performance. This space celebrates the individuals who make the community what it is.</p>
+        <div class="profile-empty">
+          <p class="mono">Meet the musician · coming soon</p>
+          <p>No profiles are published yet. Spotlights go live only with the member's approval.</p>
+          <details>
+            <summary>Want to be featured? These are the questions.</summary>
+            <ol class="questions">
+              <li>What first made you interested in music?</li>
+              <li>Which artists or musicians inspire you?</li>
+              <li>What does music mean to you?</li>
+              <li>What has been your most memorable musical experience?</li>
+              <li>What would you say to someone thinking of joining MMC?</li>
+            </ol>
+          </details>
+          <a class="btn btn--small" href="#contact">Meet the community</a>
+        </div>
+      </article>
+    </section>
+
+    <!-- ============ 10 · THE NUMBERS + 11 · BECOME PART OF THE NOISE — BOOST ============ -->
+    <section class="ch" id="join" aria-labelledby="join-title" data-chapter="7">
+      <article class="panel panel--right" data-shot="boost">
+        <p class="eyebrow mono"><span class="pedal-tag p-boost">Boost</span> MMC in numbers</p>
+        <h2 tabindex="-1">More than <span class="serif">just statistics.</span></h2>
+        <p>Every number represents a part of our story. A person who found a community. An event that brought people together. A performance that created a lasting memory.</p>
+        <!-- TODO(MMC): replace "Awaiting verification" with confirmed figures, then delete data-todo. Do not publish estimates. -->
+        <dl class="plate" data-todo="figures">
+          <div><dt class="mono">Total members</dt><dd>Awaiting verification</dd></div>
+          <div><dt class="mono">Committee members</dt><dd>Awaiting verification</dd></div>
+          <div><dt class="mono">Events &amp; activities</dt><dd>Awaiting verification</dd></div>
+          <div><dt class="mono">Performances</dt><dd>Awaiting verification</dd></div>
+          <div><dt class="mono">Years active</dt><dd>Awaiting verification</dd></div>
+        </dl>
+      </article>
+
+      <article class="panel panel--left panel--join" data-shot="slot">
+        <p class="eyebrow mono">Join the community</p>
+        <h2 id="join-title" tabindex="-1">Your sound. Your people. <span class="red">Your MMC.</span></h2>
+        <p>You don't have to be a professional musician. You don't need to have performed in front of a crowd. You don't even need to know exactly where your musical journey is going. You just need a reason to love music.</p>
+        <p>MMC is a community for students who want to explore their interests, connect with fellow music enthusiasts, and be part of a creative environment. Whether you want to perform, learn, help organise activities, work behind the scenes, or simply be around music, start by getting to know the club.</p>
+        <ul class="why">
+          <li><b>Discover your potential</b> Explore new interests and develop your confidence.</li>
+          <li><b>Meet your people</b> Connect with students who share your love for music.</li>
+          <li><b>Gain experience</b> Get involved in creative activities, teamwork, and events.</li>
+          <li><b>Create memories</b> Be part of experiences that go beyond the classroom.</li>
+        </ul>
+
+        <!-- ▼▼▼ TODO(MMC): MEMBERSHIP — fill in, then delete each data-todo ▼▼▼
+             1. Replace href="#join-details" on "Join MMC" with the real sign-up link.
+             2. Replace the bracketed placeholders. Verify eligibility and whether recruitment is open. -->
+        <div class="join-box" id="join-details" data-todo="membership">
+          <h3 class="mono">How to join</h3>
+          <ol>
+            <li>[Step 1 — e.g. fill in the membership form]</li>
+            <li>[Step 2]</li>
+            <li>[Step 3]</li>
+          </ol>
+          <dl><div><dt class="mono">Who can join</dt><dd>[Eligibility]</dd></div><div><dt class="mono">Fee</dt><dd>[Fee, or "Free"]</dd></div><div><dt class="mono">Recruitment</dt><dd>[Open / opens on …]</dd></div></dl>
+        </div>
+        <!-- ▲▲▲ END TODO(MMC): MEMBERSHIP ▲▲▲ -->
+
+        <div class="finale">
+          <p class="finale__line">The next chapter needs your sound.</p>
+          <p class="serif">Come for the music. Stay for the people.</p>
+          <div class="intro__ctas">
+            <a class="btn btn--red btn--big" href="#join-details" data-todo="sign-up link">Join MMC</a>
+            <a class="btn btn--big" href="#contact">Get in touch</a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="foot" id="contact" data-shot="outro">
+    <div class="foot__grid">
+      <div>
+        <img class="foot__logo" src="assets/images/mmc-logo.webp" width="640" height="455" loading="lazy" alt="MSU Music Club" />
+        <p class="foot__name">MMC — MSU Music Club</p>
+        <p class="serif">Different sounds. One community.</p>
+        <p class="mono foot__muted">Management &amp; Science University, Malaysia.</p>
+      </div>
+      <nav aria-label="Footer">
+        <h3 class="mono">Navigate</h3>
+        <ul><li><a href="#who">About</a></li><li><a href="#experience">Activities</a></li><li><a href="#radar">Events</a></li><li><a href="#people">Committee</a></li><li><a href="#archive">Archive</a></li><li><a href="#join">Join</a></li><li><a href="#contact">Contact</a></li></ul>
+      </nav>
+      <div>
+        <h3 class="mono">Contact</h3>
+        <!-- ▼▼▼ TODO(MMC): CONTACT — use verified official accounts only, then delete data-todo ▼▼▼ -->
+        <ul class="contact" data-todo="contact details">
+          <li><span class="mono">Email</span><a href="mailto:[email@example.com]">[club email]</a></li>
+          <li><span class="mono">Instagram</span><a href="https://instagram.com/[handle]" target="_blank" rel="noopener">[@handle]</a></li>
+          <li><span class="mono">TikTok</span><a href="https://www.tiktok.com/@[handle]" target="_blank" rel="noopener">[@handle]</a></li>
+        </ul>
+        <!-- ▲▲▲ END TODO(MMC): CONTACT ▲▲▲ -->
+      </div>
+    </div>
+    <p class="foot__close">Made for the music. <span class="red">Built by the community.</span></p>
+    <p class="mono foot__muted foot__credits">Room and instruments modelled in code · CC0 textures from Poly Haven · Photos © MSU Music Club</p>
+  </footer>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+    <figure><img id="lb-img" alt="" /><figcaption><span class="mono" id="lb-no"></span> <span id="lb-cap"></span></figcaption></figure>
+    <div class="lightbox__ctrl">
+      <button class="btn btn--small" type="button" id="lb-prev">← Prev</button>
+      <button class="btn btn--small" type="button" id="lb-next">Next →</button>
+      <button class="btn btn--small" type="button" id="lb-close">Close</button>
+    </div>
+  </dialog>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/SplitText.min.js"></script>
+  <script defer src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script defer src="js/signal.js"></script>
+  <script defer src="js/main.js"></script>
+  <script defer src="js/animations.js"></script>
+  <script type="module" src="js/world/world.js"></script>
+</body>
+</html>
